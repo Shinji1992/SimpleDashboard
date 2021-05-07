@@ -7,8 +7,11 @@ import pydeck as pdk
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+# URL
+# https://www.berlin.de/lageso/gesundheit/infektionsepidemiologie-infektionsschutz/corona/
+
 # Import data
-url = "http://ftp.berlinonline.de/lageso/corona/csv/bezirkstabelle.csv"
+url = "https://www.berlin.de/lageso/_assets/gesundheit/publikationen/corona/bezirkstabelle.csv"
 df = pd.read_csv(url,sep=';',encoding='latin-1')
 df = df.rename(columns={"Bezirk":"District","Fallzahl":"Number of cases","Differenz":"Difference","Inzidenz":"Incidence","Genesen":"Recovery"})
 
@@ -24,10 +27,9 @@ District_list = list(df['District'])
 x_axis = st.selectbox('Select District',District_list,index=District_list.index('Berlin'))
 
 # Import data
-url2 = "http://ftp.berlinonline.de/lageso/corona/csv/meldedatum_bezirk.csv"
+url2 = "https://www.berlin.de/lageso/_assets/gesundheit/publikationen/corona/meldedatum_bezirk.csv"
 df2 = pd.read_csv(url2,sep=';')
 df2 = df2.rename(columns={'Datum': 'Date'})
-df2 = df2.rename({'Neukoelln': 'Neukölln', 'Tempelhof-Schoeneberg': 'Tempelhof-Schöneberg', 'Treptow-Koepenick':'Treptow-Köpenick'}, axis=1)
 df2['Berlin'] = df2.sum(axis=1)
 
 # Create a bor chart
@@ -38,7 +40,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Creat pie charts
 st.markdown("<h2 style='text-align: center; color: black;'>Cases by Age Group</h2>", unsafe_allow_html=True)
-url1 = "http://ftp.berlinonline.de/lageso/corona/csv/alterstabelle.csv"
+url1 = "https://www.berlin.de/lageso/_assets/gesundheit/publikationen/corona/alterstabelle.csv"
 df1 = pd.read_csv(url1,sep=';',encoding='latin-1')
 df1 = df1.rename(columns={'Altersgruppe': 'Age group',"Fallzahl":"Number of cases","Differenz":"Difference"})
 df1 = df1.drop([13,14])
