@@ -30,6 +30,7 @@ x_axis = st.selectbox('Select District',District_list,index=District_list.index(
 url2 = "https://www.berlin.de/lageso/_assets/gesundheit/publikationen/corona/meldedatum_bezirk.csv"
 df2 = pd.read_csv(url2,sep=';')
 df2 = df2.rename(columns={'Datum': 'Date'})
+df2 = df2.rename({'Neukoelln': 'Neukölln', 'Tempelhof-Schoeneberg': 'Tempelhof-Schöneberg', 'Treptow-Koepenick':'Treptow-Köpenick'}, axis=1)
 df2['Berlin'] = df2.sum(axis=1)
 
 # Create a bor chart
